@@ -8,7 +8,7 @@ __author__ = "Edited: Awsaf Mahmood"
 if __name__ == "__main__":
 
     pmu_id = 780
-    data_rate = 30
+    data_rate = 50
     port = 8080
     ip = '127.0.0.1'
     method = 'tcp'
@@ -26,10 +26,13 @@ if __name__ == "__main__":
                                     3,              # Number of Analog Values
                                     1,              # Number of Digital Status Words
 
-                                    ["VA", "VB", "VC", "I1", "ANALOG1", "ANALOG2", "ANALOG3",
+                                    ["VA", "VB", "VC", "I1",
+
+                                     "ANALOG1", "ANALOG2", "ANALOG3",
                                      "BREAKER 1 STATUS", "BREAKER 2 STATUS", "BREAKER 3 STATUS",
                                      "BREAKER 4 STATUS", "BREAKER 5 STATUS", "BREAKER 6 STATUS",
                                      "BREAKER 7 STATUS", "BREAKER 8 STATUS", "BREAKER 9 STATUS",
+
                                      "BREAKER A STATUS", "BREAKER B STATUS", "BREAKER C STATUS",
                                      "BREAKER D STATUS", "BREAKER E STATUS", "BREAKER F STATUS",
                                      "BREAKER G STATUS"],    # Channel Names
@@ -55,8 +58,15 @@ if __name__ == "__main__":
     while True:
         if pmu.clients:  # Check if there is any connected PDCs
             ieee_data_sample = DataFrame(pmu_id, ("ok", True, "timestamp", False, False, False, 0, "<10", 0),
-                                         [(random.randint(14635, 15635), 10), (-7318, -12676), (-7318, 12675), (1092, 0)], 2500, 0,
-                                         [100, 1000, 10000], [0x3c12], ieee_cfg2_sample)
+                                         [(random.randint(14135, 14435), random.randint(10, 15)),
+                                          (random.randint(7618, 7918), -12176),
+                                          (random.randint(9118, 9618), 12165),
+                                          (random.randint(1092, 1292), 5)],
+
+                                         2500, 0,
+                                         [100, 1000, 10000],
+                                         [0x3c12],
+                                         ieee_cfg2_sample)
 
             pmu.send(ieee_data_sample)  # Sending sample data frame specified in IEEE C37.118.2 - Annex D (Table D.1)
 
