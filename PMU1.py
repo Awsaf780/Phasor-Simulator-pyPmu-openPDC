@@ -8,8 +8,8 @@ __author__ = "Edited: Awsaf Mahmood"
 if __name__ == "__main__":
 
     pmu_id = 780
-    data_rate = 50
-    port = 8080
+    data_rate = 30
+    port = 9000
     ip = '127.0.0.1'
     method = 'tcp'
     buffer = 2048
@@ -40,8 +40,8 @@ if __name__ == "__main__":
                                     [(915527, "v"), (915527, "v"), (915527, "v"), (45776, "i")], # Conversion factor for phasor channels
                                     [(1, "pow"), (1, "rms"), (1, "peak")],                       # Conversion factor for analog channels
                                     [(0x0000, 0xffff)],                                          # Mask words for digital status words
-                                    60,         # Nominal Frequency
-                                    22,         # Configuration Change Count
+                                    50,         # Nominal Frequency
+                                    1,         # Configuration Change Count
                                     data_rate)  # Data Rate
 
     pmu = Pmu(pmu_id, data_rate, port, ip, method, buffer, set_timestamps)
@@ -69,5 +69,6 @@ if __name__ == "__main__":
                                          ieee_cfg2_sample)
 
             pmu.send(ieee_data_sample)  # Sending sample data frame specified in IEEE C37.118.2 - Annex D (Table D.1)
+            # print(ieee_data_sample)
 
     pmu.join()
